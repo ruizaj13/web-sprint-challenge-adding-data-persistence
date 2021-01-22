@@ -7,6 +7,7 @@ const router = express.Router()
 router.get('/', (req, res) => {
     Projects.getProj()
         .then(proj => {
+            proj.forEach(proj => {proj.project_completed = !!proj.project_completed})
             res.status(200).json(proj)
         })
         .catch(err => {
@@ -17,6 +18,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     Projects.addProj(req.body)
         .then(proj => {
+            proj.project_completed = !!proj.project_completed
             res.status(201).json(proj)
         })
         .catch(err => {
